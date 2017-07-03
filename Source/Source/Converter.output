@@ -1,0 +1,316 @@
+Terminals unused in grammar
+
+   ILL_IDENTIFIER
+
+
+Grammar
+
+    0 $accept: source $end
+
+    1 source: linelist
+    2       | error
+
+    3 linelist: line linelist
+    4         | %empty
+
+    5 line: netportdecl '(' IDENTIFIER ')'
+    6     | IDENTIFIER '=' gatedecl '(' identifierlist ')'
+
+    7 identifierlist: IDENTIFIER
+    8               | IDENTIFIER ',' identifierlist
+
+    9 netportdecl: INPUT
+   10            | OUTPUT
+
+   11 gatedecl: AND
+   12         | OR
+   13         | BUFF
+   14         | NOT
+   15         | XOR
+   16         | NOR
+   17         | XNOR
+   18         | NAND
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+'(' (40) 5 6
+')' (41) 5 6
+',' (44) 8
+'=' (61) 6
+error (256) 2
+INPUT (258) 9
+OUTPUT (259) 10
+AND (260) 11
+OR (261) 12
+BUFF (262) 13
+NOT (263) 14
+XOR (264) 15
+NOR (265) 16
+XNOR (266) 17
+NAND (267) 18
+IDENTIFIER (268) 5 6 7 8
+ILL_IDENTIFIER (269)
+
+
+Nonterminals, with rules where they appear
+
+$accept (19)
+    on left: 0
+source (20)
+    on left: 1 2, on right: 0
+linelist (21)
+    on left: 3 4, on right: 1 3
+line (22)
+    on left: 5 6, on right: 3
+identifierlist (23)
+    on left: 7 8, on right: 6 8
+netportdecl (24)
+    on left: 9 10, on right: 5
+gatedecl (25)
+    on left: 11 12 13 14 15 16 17 18, on right: 6
+
+
+State 0
+
+    0 $accept: . source $end
+
+    error       shift, and go to state 1
+    INPUT       shift, and go to state 2
+    OUTPUT      shift, and go to state 3
+    IDENTIFIER  shift, and go to state 4
+
+    $end  reduce using rule 4 (linelist)
+
+    source       go to state 5
+    linelist     go to state 6
+    line         go to state 7
+    netportdecl  go to state 8
+
+
+State 1
+
+    2 source: error .
+
+    $default  reduce using rule 2 (source)
+
+
+State 2
+
+    9 netportdecl: INPUT .
+
+    $default  reduce using rule 9 (netportdecl)
+
+
+State 3
+
+   10 netportdecl: OUTPUT .
+
+    $default  reduce using rule 10 (netportdecl)
+
+
+State 4
+
+    6 line: IDENTIFIER . '=' gatedecl '(' identifierlist ')'
+
+    '='  shift, and go to state 9
+
+
+State 5
+
+    0 $accept: source . $end
+
+    $end  shift, and go to state 10
+
+
+State 6
+
+    1 source: linelist .
+
+    $default  reduce using rule 1 (source)
+
+
+State 7
+
+    3 linelist: line . linelist
+
+    INPUT       shift, and go to state 2
+    OUTPUT      shift, and go to state 3
+    IDENTIFIER  shift, and go to state 4
+
+    $default  reduce using rule 4 (linelist)
+
+    linelist     go to state 11
+    line         go to state 7
+    netportdecl  go to state 8
+
+
+State 8
+
+    5 line: netportdecl . '(' IDENTIFIER ')'
+
+    '('  shift, and go to state 12
+
+
+State 9
+
+    6 line: IDENTIFIER '=' . gatedecl '(' identifierlist ')'
+
+    AND   shift, and go to state 13
+    OR    shift, and go to state 14
+    BUFF  shift, and go to state 15
+    NOT   shift, and go to state 16
+    XOR   shift, and go to state 17
+    NOR   shift, and go to state 18
+    XNOR  shift, and go to state 19
+    NAND  shift, and go to state 20
+
+    gatedecl  go to state 21
+
+
+State 10
+
+    0 $accept: source $end .
+
+    $default  accept
+
+
+State 11
+
+    3 linelist: line linelist .
+
+    $default  reduce using rule 3 (linelist)
+
+
+State 12
+
+    5 line: netportdecl '(' . IDENTIFIER ')'
+
+    IDENTIFIER  shift, and go to state 22
+
+
+State 13
+
+   11 gatedecl: AND .
+
+    $default  reduce using rule 11 (gatedecl)
+
+
+State 14
+
+   12 gatedecl: OR .
+
+    $default  reduce using rule 12 (gatedecl)
+
+
+State 15
+
+   13 gatedecl: BUFF .
+
+    $default  reduce using rule 13 (gatedecl)
+
+
+State 16
+
+   14 gatedecl: NOT .
+
+    $default  reduce using rule 14 (gatedecl)
+
+
+State 17
+
+   15 gatedecl: XOR .
+
+    $default  reduce using rule 15 (gatedecl)
+
+
+State 18
+
+   16 gatedecl: NOR .
+
+    $default  reduce using rule 16 (gatedecl)
+
+
+State 19
+
+   17 gatedecl: XNOR .
+
+    $default  reduce using rule 17 (gatedecl)
+
+
+State 20
+
+   18 gatedecl: NAND .
+
+    $default  reduce using rule 18 (gatedecl)
+
+
+State 21
+
+    6 line: IDENTIFIER '=' gatedecl . '(' identifierlist ')'
+
+    '('  shift, and go to state 23
+
+
+State 22
+
+    5 line: netportdecl '(' IDENTIFIER . ')'
+
+    ')'  shift, and go to state 24
+
+
+State 23
+
+    6 line: IDENTIFIER '=' gatedecl '(' . identifierlist ')'
+
+    IDENTIFIER  shift, and go to state 25
+
+    identifierlist  go to state 26
+
+
+State 24
+
+    5 line: netportdecl '(' IDENTIFIER ')' .
+
+    $default  reduce using rule 5 (line)
+
+
+State 25
+
+    7 identifierlist: IDENTIFIER .
+    8               | IDENTIFIER . ',' identifierlist
+
+    ','  shift, and go to state 27
+
+    $default  reduce using rule 7 (identifierlist)
+
+
+State 26
+
+    6 line: IDENTIFIER '=' gatedecl '(' identifierlist . ')'
+
+    ')'  shift, and go to state 28
+
+
+State 27
+
+    8 identifierlist: IDENTIFIER ',' . identifierlist
+
+    IDENTIFIER  shift, and go to state 25
+
+    identifierlist  go to state 29
+
+
+State 28
+
+    6 line: IDENTIFIER '=' gatedecl '(' identifierlist ')' .
+
+    $default  reduce using rule 6 (line)
+
+
+State 29
+
+    8 identifierlist: IDENTIFIER ',' identifierlist .
+
+    $default  reduce using rule 8 (identifierlist)

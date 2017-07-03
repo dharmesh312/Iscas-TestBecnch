@@ -1,0 +1,22 @@
+# Clean up the older object files 
+\rm -f ../Obj/*
+
+# Compile the project files 
+gcc -g -I ../Include -c Application.cxx -o ../Obj/Application.o
+gcc -g -c -I ../Include/ Design.cxx -o ../Obj/Design.o
+gcc -g -c -I ../Include/ Gate.cxx -o ../Obj/Gate.o
+
+# Generate the parser and lesxer code 
+bison -dtv -o Converter.cxx Converter.y
+flex Converter.l 
+mv lex.yy.c lex.yy.cxx
+
+# Compile the parser code 
+gcc -g -c -I ../Include/ Converter.cxx -o ../Obj/Converter.o
+gcc -g -c -I ../Include/ lex.yy.cxx -o ../Obj/lex.yy.o
+
+# Remove the generated code
+\rm -f Converter.cxx Converter.hxx lex.yy.cxx 
+
+# Compile the binary
+gcc -o ../Obj/converter ../Obj/*.o -lstdc++ -lfl -ly

@@ -1,0 +1,4 @@
+#\rm -f a.out Converter.cxx  Converter.hxx Converter.output lex.yy.cxx lex.yy.c *.o converter
+
+# Clean up the object directory 
+\rm -f ../Obj/*
